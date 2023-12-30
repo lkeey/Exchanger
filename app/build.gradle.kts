@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -55,6 +56,9 @@ android {
 
 dependencies {
 
+    val nav = "2.7.6"
+    val destinations = "1.9.53"
+
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.activity:activity-compose:1.7.0")
@@ -73,4 +77,12 @@ dependencies {
 
     // Splash API
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    // Navigation
+    implementation("androidx.navigation:navigation-compose:$nav")
+
+    // Compose Destinations
+    implementation("io.github.raamcosta.compose-destinations:core:$destinations")
+    ksp("io.github.raamcosta.compose-destinations:ksp:$destinations")
+
 }
