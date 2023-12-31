@@ -85,4 +85,10 @@ dependencies {
     implementation("io.github.raamcosta.compose-destinations:core:$destinations")
     ksp("io.github.raamcosta.compose-destinations:ksp:$destinations")
 
+    // Glasmorphism
+    implementation("dev.chrisbanes.haze:haze-jetpack-compose:0.4.1")
+
+    // Async Image
+    implementation("io.coil-kt:coil-compose:2.5.0")
+
 }

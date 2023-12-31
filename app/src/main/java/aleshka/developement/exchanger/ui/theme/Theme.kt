@@ -10,10 +10,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.navigation.NavController
+import dev.chrisbanes.haze.HazeState
 
 @Composable
 fun ExchangerTheme(
     navController: NavController,
+    hazeState: HazeState,
     statusBarColor: Color = Transparent,
     navigationBarColor: Color = Transparent,
     content: @Composable (PaddingValues) -> Unit
@@ -24,7 +26,10 @@ fun ExchangerTheme(
         content = {
             Scaffold(
                 bottomBar = {
-                    BottomNavigationBar(navController = navController)
+                    BottomNavigationBar(
+                        navController = navController,
+                        hazeState = hazeState
+                    )
                 },
                 content = content,
                 contentColor = Black
