@@ -1,7 +1,10 @@
 package aleshka.developement.exchanger.feature_exchange.presentation.screen
 
+import aleshka.developement.exchanger.R
+import aleshka.developement.exchanger.feature_exchange.presentation.components.OutlinedText
 import aleshka.developement.exchanger.ui.theme.Black
 import aleshka.developement.exchanger.ui.theme.ExchangerTheme
+import android.util.Log
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
@@ -10,6 +13,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -26,8 +30,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.FontWeight.Companion.Bold
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import co.yml.charts.axis.AxisData
 import co.yml.charts.common.model.Point
@@ -61,32 +72,41 @@ fun ExchangeScreen (
         navController = navController,
         hazeState = hazeState
     ) {
-        Text(text = "Exchanger 1")
 
-        LazyColumn(
+        Column (
             modifier = Modifier
-                .haze(
-                    hazeState,
-                    backgroundColor = MaterialTheme.colorScheme.background,
-                    tint = Black.copy(alpha = .8f),
-                    blurRadius = 30.dp,
-                )
-                .fillMaxSize()
-
+                .padding(32.dp)
         ) {
-            repeat(300) {
-                val rnd = Random()
-                val color = Color(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
-                item {
-                    Box(modifier = Modifier
-                        .size(500.dp)
-                        .padding(16.dp)
-                        .background(color)
-                    )
-                }
-            }
-        }
+            Text(
+                text = "Exchanger",
+                style = TextStyle(
+                    fontSize = 25.sp,
+                    lineHeight = 22.sp,
+                    fontFamily = FontFamily(Font(R.font.pacifico)),
+                    fontWeight = FontWeight(600),
+                    color = Black,
+                )
+            )
 
+            Spacer(modifier = Modifier.height(32.dp))
+            
+            Text(
+                text = "Здесь вы можете перевести деньги из одной валюты в другую",
+                style = TextStyle(
+                    fontSize = 13.sp,
+                    fontFamily = FontFamily(Font(R.font.pacifico)),
+                    fontWeight = FontWeight(400),
+                    color = Black,
+                    letterSpacing = 0.26.sp,
+                )
+            )
+
+            OutlinedText(label = "Введите количество средств", isNumber = true, onTextChanged = {
+                Log.i("WADAWDAWD", "text - $it")
+            })
+
+            // on complete - IME ACTION
+        }
     }
 }
 
