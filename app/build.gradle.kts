@@ -91,4 +91,6 @@ dependencies {
     // Async Image
     implementation("io.coil-kt:coil-compose:2.5.0")
 
+    // Diagrams
+    implementation("co.yml:ycharts:2.1.0")
 }
