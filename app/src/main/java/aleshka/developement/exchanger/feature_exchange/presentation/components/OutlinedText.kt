@@ -5,6 +5,7 @@ import aleshka.developement.exchanger.ui.theme.AccentColor
 import aleshka.developement.exchanger.ui.theme.ProfileEditPlaceholder
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
@@ -26,7 +27,8 @@ import androidx.compose.ui.unit.sp
 fun OutlinedText (
     label: String,
     isNumber: Boolean,
-    onTextChanged: (String) -> Unit,
+    onTextChanged: (Float) -> Unit,
+    onCompleted: () -> Unit,
 ) {
 
     val textValue = remember {
@@ -53,15 +55,20 @@ fun OutlinedText (
             cursorColor = AccentColor,
         ),
         keyboardOptions = KeyboardOptions(
-            imeAction = ImeAction.Next,
+            imeAction = ImeAction.Done,
             keyboardType = if (isNumber) KeyboardType.Number else KeyboardType.Text
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = {onCompleted()}
         ),
         singleLine = true,
         maxLines = 1,
         value = textValue.value,
         onValueChange = {
-            textValue.value = it
-            onTextChanged(it)
+            if (it.toFloatOrNull() != null) {
+                textValue.value = it
+                onTextChanged(it.toFloat())
+            }
         },
         shape = RoundedCornerShape(16.dp),
     )

@@ -58,6 +58,11 @@ dependencies {
 
     val nav = "2.7.6"
     val destinations = "1.9.53"
+    val haze = "0.4.1"
+    val coil = "2.5.0"
+    val diagrams = "2.1.0"
+    val retrofit = "2.9.0"
+    val koin = "3.5.0"
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
@@ -86,15 +91,18 @@ dependencies {
     ksp("io.github.raamcosta.compose-destinations:ksp:$destinations")
 
     // Glasmorphism
-    implementation("dev.chrisbanes.haze:haze-jetpack-compose:0.4.1")
+    implementation("dev.chrisbanes.haze:haze-jetpack-compose:$haze")
 
     // Async Image
-    implementation("io.coil-kt:coil-compose:2.5.0")
+    implementation("io.coil-kt:coil-compose:$coil")
 
     // Diagrams
-    implementation("co.yml:ycharts:2.1.0")
+    implementation("co.yml:ycharts:$diagrams")
 
     // Retrofit & GSON
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit")
+    implementation("com.squareup.retrofit2:retrofit:$retrofit")
+
+    // DI koin
+    implementation("io.insert-koin:koin-androidx-compose:$koin")
 }

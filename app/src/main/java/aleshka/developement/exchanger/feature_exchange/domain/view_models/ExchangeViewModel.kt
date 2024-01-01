@@ -17,7 +17,7 @@ class ExchangeViewModel : ViewModel() {
     }
 
     private val _state = MutableStateFlow(ExchangeState())
-    private val state = _state.asStateFlow()
+    val state = _state.asStateFlow()
 
     private val repository = ExchangeRepository()
 

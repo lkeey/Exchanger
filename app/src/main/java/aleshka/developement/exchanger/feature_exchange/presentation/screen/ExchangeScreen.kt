@@ -1,6 +1,8 @@
 package aleshka.developement.exchanger.feature_exchange.presentation.screen
 
 import aleshka.developement.exchanger.R
+import aleshka.developement.exchanger.feature_exchange.domain.events.ExchangeEvent
+import aleshka.developement.exchanger.feature_exchange.domain.view_models.ExchangeViewModel
 import aleshka.developement.exchanger.feature_exchange.presentation.components.OutlinedText
 import aleshka.developement.exchanger.ui.theme.Black
 import aleshka.developement.exchanger.ui.theme.ExchangerTheme
@@ -24,6 +26,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -56,6 +59,8 @@ import coil.compose.AsyncImage
 import com.ramcosta.composedestinations.annotation.Destination
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
+import org.koin.androidx.compose.getViewModel
+import org.koin.androidx.compose.koinViewModel
 import java.util.Random
 
 @Composable
@@ -63,6 +68,9 @@ import java.util.Random
 fun ExchangeScreen (
     navController: NavController
 ) {
+
+    val viewModel = getViewModel<ExchangeViewModel>()
+    val state = viewModel.state.collectAsState().value
 
     val hazeState = remember {
         HazeState()
@@ -101,11 +109,16 @@ fun ExchangeScreen (
                 )
             )
 
-            OutlinedText(label = "Введите количество средств", isNumber = true, onTextChanged = {
-                Log.i("WADAWDAWD", "text - $it")
-            })
-
-            // on complete - IME ACTION
+            OutlinedText(
+                label = "Введите количество средств",
+                isNumber = true,
+                onTextChanged = {
+                    viewModel.onEvent(ExchangeEvent.OnChangedAmount(it))
+                },
+                onCompleted = {
+                    viewModel.onEvent(ExchangeEvent.OnExchangeCurrencies)
+                }
+            )
         }
     }
 }
