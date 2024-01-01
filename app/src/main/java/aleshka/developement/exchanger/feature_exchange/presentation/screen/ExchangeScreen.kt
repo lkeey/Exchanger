@@ -68,7 +68,7 @@ fun ExchangeScreen (
                 .haze(
                     hazeState,
                     backgroundColor = MaterialTheme.colorScheme.background,
-                    tint = Black.copy(alpha = .2f),
+                    tint = Black.copy(alpha = .8f),
                     blurRadius = 30.dp,
                 )
                 .fillMaxSize()
@@ -107,12 +107,15 @@ fun ExchangeScreen2 (
     ) {
         Text(text = "Exchanger 2")
 
-        LazyColumn(Modifier.fillMaxSize().haze(
-            hazeState,
-            backgroundColor = MaterialTheme.colorScheme.background,
-            tint = Black.copy(alpha = .2f),
-            blurRadius = 30.dp,
-        )) {
+        LazyColumn(
+            Modifier
+                .fillMaxSize()
+                .haze(
+                    hazeState,
+                    backgroundColor = MaterialTheme.colorScheme.background,
+                    tint = Black.copy(alpha = .8f),
+                    blurRadius = 30.dp,
+                )) {
             items(50) {
                 Box(
                     modifier = Modifier
@@ -150,59 +153,84 @@ fun ExchangeScreen3 (
         HazeState()
     }
 
+
+    val pointsData: List<Point> =
+        listOf(Point(0f, 40f), Point(1f, 90f), Point(2f, 0f), Point(3f, 60f), Point(4f, 10f))
+
+    val steps = 5
+
+    val xAxisData = AxisData.Builder()
+        .axisStepSize(100.dp)
+        .backgroundColor(Color.Blue)
+        .steps(pointsData.size - 1)
+        .labelData { i -> i.toString() }
+        .labelAndAxisLinePadding(15.dp)
+        .build()
+
+    val yAxisData = AxisData.Builder()
+        .steps(steps)
+        .backgroundColor(Color.Red)
+        .labelAndAxisLinePadding(20.dp)
+        .labelData { i->
+            val yScale = 100 / steps
+            ((i * yScale).toString())
+        }
+        .build()
+
+    val lineChartData = LineChartData(
+        linePlotData = LinePlotData(
+            lines = listOf(
+                Line(
+                    dataPoints = pointsData,
+                    LineStyle(),
+                    IntersectionPoint(),
+                    SelectionHighlightPoint(),
+                    ShadowUnderLine(),
+                    SelectionHighlightPopUp()
+                )
+            ),
+        ),
+        xAxisData = xAxisData,
+        yAxisData = yAxisData,
+        gridLines = GridLines(),
+        backgroundColor = Color.White
+    )
+
     ExchangerTheme (
         navController = navController,
         hazeState = hazeState
     ) {
-        Text(text = "Exchanger 3")
+        Column(
+            Modifier.haze(
+                hazeState,
+                backgroundColor = MaterialTheme.colorScheme.background,
+                tint = Black.copy(alpha = .8f),
+                blurRadius = 30.dp,
+            )
+        ) {
+            Text(text = "Exchanger 3")
 
-        val pointsData: List<Point> =
-            listOf(Point(0f, 40f), Point(1f, 90f), Point(2f, 0f), Point(3f, 60f), Point(4f, 10f))
+            LineChart(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp),
+                lineChartData = lineChartData
+            )
 
-        val steps = 5
+            LineChart(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp),
+                lineChartData = lineChartData
+            )
 
-        val xAxisData = AxisData.Builder()
-            .axisStepSize(100.dp)
-            .backgroundColor(Color.Blue)
-            .steps(pointsData.size - 1)
-            .labelData { i -> i.toString() }
-            .labelAndAxisLinePadding(15.dp)
-            .build()
+            LineChart(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp),
+                lineChartData = lineChartData
+            )
+        }
 
-        val yAxisData = AxisData.Builder()
-            .steps(steps)
-            .backgroundColor(Color.Red)
-            .labelAndAxisLinePadding(20.dp)
-            .labelData { i->
-                val yScale = 100 / steps
-                ((i * yScale).toString())
-            }
-            .build()
-
-        val lineChartData = LineChartData(
-            linePlotData = LinePlotData(
-                lines = listOf(
-                    Line(
-                        dataPoints = pointsData,
-                        LineStyle(),
-                        IntersectionPoint(),
-                        SelectionHighlightPoint(),
-                        ShadowUnderLine(),
-                        SelectionHighlightPopUp()
-                    )
-                ),
-            ),
-            xAxisData = xAxisData,
-            yAxisData = yAxisData,
-            gridLines = GridLines(),
-            backgroundColor = Color.White
-        )
-
-        LineChart(
-            modifier = Modifier
-                .fillMaxWidth()
-                .height(300.dp),
-            lineChartData = lineChartData
-        )
     }
 }
