@@ -83,12 +83,19 @@ fun ExchangeScreen (
 
         Column (
             modifier = Modifier
+                .fillMaxSize()
+                .haze(
+                    hazeState,
+                    backgroundColor = MaterialTheme.colorScheme.background,
+                    tint = Black.copy(alpha = .8f),
+                    blurRadius = 30.dp,
+                )
                 .padding(32.dp)
         ) {
             Text(
                 text = "Exchanger",
                 style = TextStyle(
-                    fontSize = 25.sp,
+                    fontSize = 30.sp,
                     lineHeight = 22.sp,
                     fontFamily = FontFamily(Font(R.font.pacifico)),
                     fontWeight = FontWeight(600),
@@ -101,13 +108,15 @@ fun ExchangeScreen (
             Text(
                 text = "Здесь вы можете перевести деньги из одной валюты в другую",
                 style = TextStyle(
-                    fontSize = 13.sp,
+                    fontSize = 16.sp,
                     fontFamily = FontFamily(Font(R.font.pacifico)),
                     fontWeight = FontWeight(400),
                     color = Black,
                     letterSpacing = 0.26.sp,
                 )
             )
+
+            Spacer(modifier = Modifier.height(48.dp))
 
             OutlinedText(
                 label = "Введите количество средств",
@@ -118,6 +127,25 @@ fun ExchangeScreen (
                 onCompleted = {
                     viewModel.onEvent(ExchangeEvent.OnExchangeCurrencies)
                 }
+            )
+
+            Spacer(modifier = Modifier.height(48.dp))
+
+            /* TODO create dropdown of currencies
+            * */
+
+            Text(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                text = "${state.result} ${state.toCurrency}",
+                style = TextStyle(
+                    fontSize = 40.sp,
+                    fontFamily = FontFamily(Font(R.font.pacifico)),
+                    fontWeight = FontWeight(600),
+                    color = Black,
+                    letterSpacing = 0.26.sp,
+                    textAlign = TextAlign.Center
+                )
             )
         }
     }

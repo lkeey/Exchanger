@@ -3,6 +3,7 @@ package aleshka.developement.exchanger.feature_exchange.domain.view_models
 import aleshka.developement.exchanger.feature_exchange.domain.events.ExchangeEvent
 import aleshka.developement.exchanger.feature_exchange.domain.repositories.ExchangeRepository
 import aleshka.developement.exchanger.feature_exchange.domain.states.ExchangeState
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -48,11 +49,21 @@ class ExchangeViewModel : ViewModel() {
             }
             is ExchangeEvent.OnExchangeCurrencies -> {
                 viewModelScope.launch {
-                    repository.exchangeCurrencies(
+                    val result = repository.exchangeCurrencies(
                         fromCurrency = state.value.fromCurrency,
                         toCurrency = state.value.toCurrency,
                         amount = state.value.amount,
                     )
+
+                    Log.i(TAG, "result - ${result.body()}")
+
+                    if (result.body()?.amount != null) {
+                        _state.update {
+                            it.copy(
+                                result = result.body()!!.amount
+                            )
+                        }
+                    }
                 }
             }
         }
