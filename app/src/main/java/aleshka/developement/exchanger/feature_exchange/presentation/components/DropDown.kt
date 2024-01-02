@@ -37,11 +37,11 @@ import androidx.compose.ui.unit.sp
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DropDown (
-    modifier: Modifier,
     options: List<String>,
     previousData: String,
     label: String,
-    onTextChanged: (String) -> Unit
+    onTextChanged: (String) -> Unit,
+    modifier: Modifier = Modifier,
 ) {
     var expanded by remember {
         mutableStateOf(false)

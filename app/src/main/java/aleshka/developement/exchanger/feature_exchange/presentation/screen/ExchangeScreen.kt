@@ -18,13 +18,17 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -62,11 +66,13 @@ fun ExchangeScreen() {
     val viewModel = getViewModel<ExchangeViewModel>()
     val state = viewModel.state.collectAsState().value
 
+    val scrollState = rememberScrollState()
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(32.dp)
-
+            .verticalScroll(scrollState)
     ) {
 
         Row(
@@ -134,34 +140,43 @@ fun ExchangeScreen() {
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
         ) {
             DropDown(
                 modifier = Modifier
-                    .weight(1f),
+                    .fillMaxWidth(.45f),
                 options = listOf(
                     "RUB",
                     "EUR",
                     "USD",
                 ),
                 previousData = "USD",
-                label = "Choose from currency",
+                label = "From currency",
                 onTextChanged = {
-
+                    viewModel.onEvent(ExchangeEvent.OnChangedFromCurrency(it))
                 }
             )
 
-            DropDown(
+            Icon(
                 modifier = Modifier
-                    .weight(1f),
+                    .padding(horizontal = 4.dp)
+                    .fillMaxWidth(.1f),
+                painter = painterResource(id = R.drawable.arrow_right),
+                contentDescription = "exchange arrow",
+                tint = MaterialTheme.colorScheme.onBackground
+            )
+
+            DropDown(
                 options = listOf(
                     "RUB",
                     "EUR",
                     "USD",
                 ),
-                previousData = "USD",
-                label = "Choose from currency",
+                previousData = "USD 2",
+                label = "To currency",
                 onTextChanged = {
-
+                    viewModel.onEvent(ExchangeEvent.OnChangedToCurrency(it))
                 }
             )
         }

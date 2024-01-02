@@ -22,6 +22,12 @@ class ExchangeViewModel : ViewModel() {
 
     private val repository = ExchangeRepository()
 
+    init {
+        viewModelScope.launch {
+            repository.getCurrencies()
+        }
+    }
+
     fun onEvent(
         event: ExchangeEvent
     ) {
