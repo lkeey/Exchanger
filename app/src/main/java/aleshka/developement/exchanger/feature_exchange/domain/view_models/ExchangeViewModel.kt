@@ -23,8 +23,20 @@ class ExchangeViewModel : ViewModel() {
     private val repository = ExchangeRepository()
 
     init {
+        // get list of currencies
         viewModelScope.launch {
-            repository.getCurrencies()
+            repository.getCurrencies(
+                onSuccess = { currencies->
+                    _state.update {
+                        it.copy(
+                            currencies = currencies
+                        )
+                    }
+                },
+                onError = {
+                    Log.i(TAG, "error")
+                }
+            )
         }
     }
 

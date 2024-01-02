@@ -1,16 +1,17 @@
 package aleshka.developement.exchanger.shared.api
 
-import aleshka.developement.exchanger.shared.data.Constants.BASE_EXCHANGE_URL
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitBuilder {
+class RetrofitBuilder(
+    url: String
+) {
 
     private val client = OkHttpClient.Builder().build()
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl(BASE_EXCHANGE_URL)
+        .baseUrl(url)
         .addConverterFactory(GsonConverterFactory.create())
         .client(client)
         .build()
