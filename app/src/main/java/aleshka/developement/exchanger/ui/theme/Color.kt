@@ -5,6 +5,7 @@ import androidx.compose.ui.graphics.Color
 val White = Color(0xFFFFFFFF)
 val Black = Color(0xFF000000)
 val ProfileEditPlaceholder = Color(0xFF6D7885)
+val LightGrey = Color(0xFFB8C1CC)
 val AccentColor = Color(0xFFFA6FFF)
 
 val Purple80 = Color(0xFFD0BCFF)
