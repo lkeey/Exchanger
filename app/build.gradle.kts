@@ -63,6 +63,7 @@ dependencies {
     val diagrams = "2.1.0"
     val retrofit = "2.9.0"
     val koin = "3.5.0"
+    val controller = "0.27.0"
 
     implementation("androidx.core:core-ktx:1.10.1")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
@@ -105,4 +106,9 @@ dependencies {
 
     // DI koin
     implementation("io.insert-koin:koin-androidx-compose:$koin")
+
+    // System Bar Color
+    implementation("com.google.accompanist:accompanist-systemuicontroller:$controller")
+    implementation("com.google.accompanist:accompanist-navigation-material:$controller")
+
 }

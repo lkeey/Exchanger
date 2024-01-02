@@ -1,13 +1,12 @@
 package aleshka.developement.exchanger.shared.presentation.modifiers
 
-import aleshka.developement.exchanger.ui.theme.AccentColor
-import aleshka.developement.exchanger.ui.theme.LightGrey
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -38,9 +37,9 @@ fun Modifier.shimmer() : Modifier = composed {
         shape = RoundedCornerShape(20.dp),
         brush = Brush.linearGradient(
             colors = listOf(
-                LightGrey,
-                AccentColor,
-                LightGrey
+                MaterialTheme.colorScheme.secondary,
+                MaterialTheme.colorScheme.primary,
+                MaterialTheme.colorScheme.secondary
             ),
             start = Offset(startOffsetX.value, 0f),
             end = Offset(startOffsetX.value + size.value.width.toFloat(), size.value.height.toFloat())

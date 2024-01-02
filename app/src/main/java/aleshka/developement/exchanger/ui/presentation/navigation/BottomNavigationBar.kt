@@ -1,6 +1,5 @@
 package aleshka.developement.exchanger.ui.presentation.navigation
 
-import aleshka.developement.exchanger.feature_exchange.presentation.screen.NavGraphs
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
@@ -12,7 +11,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,8 +34,8 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.ramcosta.composedestinations.navigation.popBackStack
-import com.ramcosta.composedestinations.navigation.popUpTo
+import androidx.navigation.NavOptionsBuilder
+import com.ramcosta.composedestinations.navigation.navigate
 import com.ramcosta.composedestinations.utils.isRouteOnBackStack
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeChild
@@ -47,6 +45,9 @@ fun BottomNavigationBar(
     navController: NavController,
     hazeState: HazeState
 ) {
+
+//    val currentDestination: Destination? = navController.appCurrentDestinationAsState().value
+//        ?: NavGraphs.root.startAppDestination
 
     val tabs = listOf(
         BottomNavigationDestinations.Exchange,
@@ -81,16 +82,16 @@ fun BottomNavigationBar(
             .fillMaxWidth()
             .fillMaxHeight(.1f)
             .hazeChild(state = hazeState, shape = CircleShape)
-            .border(
-                width = Dp.Hairline,
-                brush = Brush.verticalGradient(
-                    colors = listOf(
-                        Color.White.copy(alpha = .8f),
-                        Color.White.copy(alpha = .2f),
-                    ),
-                ),
-                shape = CircleShape
-            )
+//            .border(
+//                width = Dp.Hairline,
+//                brush = Brush.verticalGradient(
+//                    colors = listOf(
+//                        Color.White.copy(alpha = .8f),
+//                        Color.White.copy(alpha = .2f),
+//                    ),
+//                ),
+//                shape = CircleShape
+//            )
     ) {
         BottomBarTabs(
             navController,
@@ -99,28 +100,9 @@ fun BottomNavigationBar(
             onTabSelected = { tab, isOpened ->
                 selectedTabIndex = tabs.indexOf(tab)
 
-                if (isOpened) {
-                    // When we click again on a bottom bar item and it was already selected
-                    // we want to pop the back stack until the initial destination of this bottom bar item
-                    navController.popBackStack(tab.direction, false)
-                }
-
-                navController.navigate(tab.direction.route) {
-
-                    // Pop up to the root of the graph to
-                    // avoid building up a large stack of destinations
-                    // on the back stack as users select items
-                    popUpTo(NavGraphs.root) {
-                        saveState = true
-                    }
-
-                    // Avoid multiple copies of the same destination when
-                    // reselecting the same item
+                navController.navigate(tab.direction, fun NavOptionsBuilder.() {
                     launchSingleTop = true
-
-                    // Restore state when reselecting a previously selected item
-                    restoreState = true
-                }
+                })
             }
         )
 

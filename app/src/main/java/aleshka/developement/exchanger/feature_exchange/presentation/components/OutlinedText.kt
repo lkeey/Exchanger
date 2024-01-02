@@ -1,12 +1,11 @@
 package aleshka.developement.exchanger.feature_exchange.presentation.components
 
 import aleshka.developement.exchanger.R
-import aleshka.developement.exchanger.ui.theme.AccentColor
-import aleshka.developement.exchanger.ui.theme.ProfileEditPlaceholder
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
@@ -45,14 +44,14 @@ fun OutlinedText (
                     fontSize = 16.sp,
                     fontFamily = FontFamily(Font(R.font.pacifico)),
                     fontWeight = FontWeight(400),
-                    color = ProfileEditPlaceholder,
+                    color = MaterialTheme.colorScheme.tertiary,
                     letterSpacing = 0.3.sp,
                 )
             )
         },
         colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = AccentColor,
-            cursorColor = AccentColor,
+            focusedBorderColor = MaterialTheme.colorScheme.primary,
+            cursorColor = MaterialTheme.colorScheme.primary,
         ),
         keyboardOptions = KeyboardOptions(
             imeAction = ImeAction.Done,

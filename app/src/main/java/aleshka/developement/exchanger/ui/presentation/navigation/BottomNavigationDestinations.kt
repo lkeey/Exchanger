@@ -24,6 +24,6 @@ sealed class BottomNavigationDestinations (
         ExchangeScreen2Destination, R.drawable.diagrams, R.string.diagrams, Color(0xFFFA6FFF)    )
 
     data object Exchange3 : BottomNavigationDestinations(
-        ExchangeScreen3Destination, R.drawable.logo, R.string.app_name, Color(0xFFADFF64)    )
+        ExchangeScreen3Destination, R.drawable.star, R.string.star, Color(0xFFADFF64)    )
 
 }
