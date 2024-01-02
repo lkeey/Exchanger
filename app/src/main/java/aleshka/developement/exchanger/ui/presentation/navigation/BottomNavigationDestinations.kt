@@ -17,13 +17,13 @@ sealed class BottomNavigationDestinations (
 ) {
 
     data object Exchange : BottomNavigationDestinations(
-        ExchangeScreenDestination, R.drawable.ic_launcher_background, R.string.app_name, Color(0xFFFFA574)
+        ExchangeScreenDestination, R.drawable.exchange, R.string.exchange, Color(0xFFFFA574)
     )
 
     data object Exchange2 : BottomNavigationDestinations(
-        ExchangeScreen2Destination, R.drawable.ic_launcher_background, R.string.app_name, Color(0xFFFA6FFF)    )
+        ExchangeScreen2Destination, R.drawable.diagrams, R.string.diagrams, Color(0xFFFA6FFF)    )
 
     data object Exchange3 : BottomNavigationDestinations(
-        ExchangeScreen3Destination, R.drawable.ic_launcher_background, R.string.app_name, Color(0xFFADFF64)    )
+        ExchangeScreen3Destination, R.drawable.logo, R.string.app_name, Color(0xFFADFF64)    )
 
 }

@@ -83,7 +83,7 @@ fun ExchangeScreen (
                 .haze(
                     hazeState,
                     backgroundColor = MaterialTheme.colorScheme.background,
-                    tint = Black.copy(alpha = .8f),
+                    tint = Black.copy(alpha = .7f),
                     blurRadius = 30.dp,
                 )
                 .padding(32.dp)

@@ -1,7 +1,6 @@
 package aleshka.developement.exchanger.ui.presentation.navigation
 
 import aleshka.developement.exchanger.feature_exchange.presentation.screen.NavGraphs
-import android.util.Log
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
@@ -9,10 +8,11 @@ import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -79,7 +79,7 @@ fun BottomNavigationBar(
         modifier = Modifier
             .padding(vertical = 24.dp, horizontal = 64.dp)
             .fillMaxWidth()
-            .height(64.dp)
+            .fillMaxHeight(.1f)
             .hazeChild(state = hazeState, shape = CircleShape)
             .border(
                 width = Dp.Hairline,

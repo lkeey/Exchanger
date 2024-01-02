@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">Currency Exchanger</string>
+    <string name="diagrams">Diagrams</string>
     <string name="advice_exchange">Здесь вы можете перевести деньги из одной валюты в другую</string>
     <string name="input_exchange">Введите количество средств</string>
+    <string name="exchange">Exchange</string>
 </resources>

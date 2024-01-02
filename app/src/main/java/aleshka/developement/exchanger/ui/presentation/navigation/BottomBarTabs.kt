@@ -1,7 +1,6 @@
 package aleshka.developement.exchanger.ui.presentation.navigation
 
-import aleshka.developement.exchanger.R
-import aleshka.developement.exchanger.ui.theme.Black
+import aleshka.developement.exchanger.ui.theme.White
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.spring
@@ -9,7 +8,6 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
@@ -23,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.LightGray
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -40,6 +39,7 @@ fun BottomBarTabs(
     selectedTab: Int,
     onTabSelected: (BottomNavigationDestinations, Boolean) -> Unit,
 ) {
+
     CompositionLocalProvider(
         LocalTextStyle provides LocalTextStyle.current.copy(
             fontSize = 12.sp,
@@ -48,15 +48,19 @@ fun BottomBarTabs(
         LocalContentColor provides Color.White
     ) {
         Row(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize(),
         ) {
             for (tab in tabs) {
+
+                val isSelected = selectedTab == tabs.indexOf(tab)
+
                 val alpha by animateFloatAsState(
-                    targetValue = if (selectedTab == tabs.indexOf(tab)) 1f else .35f,
+                    targetValue = if (isSelected) 1f else .35f,
                     label = "alpha"
                 )
                 val scale by animateFloatAsState(
-                    targetValue = if (selectedTab == tabs.indexOf(tab)) 1f else .98f,
+                    targetValue = if (isSelected) 1f else .98f,
                     visibilityThreshold = .000001f,
                     animationSpec = spring(
                         stiffness = Spring.StiffnessLow,
@@ -68,7 +72,7 @@ fun BottomBarTabs(
                     modifier = Modifier
                         .scale(scale)
                         .alpha(alpha)
-                        .fillMaxHeight()
+                        .fillMaxSize()
                         .weight(1f)
                         .pointerInput(Unit) {
                             detectTapGestures {
@@ -79,18 +83,25 @@ fun BottomBarTabs(
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center,
                 ) {
-                    Icon(painter = painterResource(R.drawable.logo), contentDescription = "tab ${tab.label}")
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        verticalArrangement = Arrangement.SpaceEvenly,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Icon(painter = painterResource(tab.icon), contentDescription = "tab ${tab.label}")
 
-                    Text(
-                        text = stringResource(tab.label),
-                        style = TextStyle(
-                            fontSize = 8.sp,
-                            fontWeight = FontWeight(500),
-                            color = Black,
-                            textAlign = TextAlign.Center,
-                            letterSpacing = 0.2.sp,
+                        Text(
+                            text = stringResource(tab.label),
+                            style = TextStyle(
+                                fontSize = if (isSelected) 12.sp else 10.sp,
+                                fontWeight = FontWeight(500),
+                                color = if (isSelected) White else LightGray,
+                                textAlign = TextAlign.Center,
+                                letterSpacing = 0.2.sp,
+                            )
                         )
-                    )
+                    }
                 }
             }
         }
