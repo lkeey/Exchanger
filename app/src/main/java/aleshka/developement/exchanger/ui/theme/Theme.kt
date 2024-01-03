@@ -7,8 +7,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Transparent
 import androidx.navigation.NavController
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import dev.chrisbanes.haze.HazeState
@@ -18,8 +16,6 @@ fun ExchangerTheme(
     navController: NavController,
     hazeState: HazeState,
     useDarkTheme: Boolean = isSystemInDarkTheme(),
-    statusBarColor: Color = Transparent,
-    navigationBarColor: Color = Transparent,
     content: @Composable (PaddingValues) -> Unit
 ) {
 
@@ -31,11 +27,11 @@ fun ExchangerTheme(
     DisposableEffect(systemUiController, useDarkIcons) {
 
         systemUiController.setNavigationBarColor(
-            color = navigationBarColor,
+            color = colors.background,
             darkIcons = useDarkIcons
         )
         systemUiController.setStatusBarColor(
-            statusBarColor,
+            colors.background,
             darkIcons = useDarkIcons
         )
 

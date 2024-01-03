@@ -223,11 +223,6 @@ fun ExchangeScreen() {
             }
         }
     }
-
-//    TODO create button which will be visible until we click, then shimmer
-    // after this use can see result
-
-
 }
 
 @Composable
