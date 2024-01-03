@@ -5,7 +5,9 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
 val LightColors = lightColorScheme(
-    primary = Color(0xFFFA6FFF),
+    primary = Color(0xFF966B9D),
+    primaryContainer = Color(0xFFDD6E42),
+    inversePrimary = Color(0xFFA30015),
 
     secondary = Color(0xFFB8C1CC),
     secondaryContainer = Color(0xFFB8C1CC),
@@ -17,7 +19,9 @@ val LightColors = lightColorScheme(
 )
 
 val DarkColors = darkColorScheme(
-    primary = Color(0xFFFA6FFF),
+    primary = Color(0xFF966B9D),
+    primaryContainer = Color(0xFFDD6E42),
+    inversePrimary = Color(0xFFA30015),
 
     secondary = Color(0xFFB8C1CC),
     secondaryContainer = Color(0xFFB8C1CC),

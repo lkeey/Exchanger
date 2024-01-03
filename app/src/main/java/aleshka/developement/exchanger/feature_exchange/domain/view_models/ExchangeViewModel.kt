@@ -47,26 +47,36 @@ class ExchangeViewModel : ViewModel() {
             is ExchangeEvent.OnChangedAmount -> {
                 _state.update {
                     it.copy(
-                        amount = event.amount
+                        amount = event.amount,
+                        result = -1f
                     )
                 }
             }
             is ExchangeEvent.OnChangedFromCurrency -> {
                 _state.update {
                     it.copy(
-                        fromCurrency = event.fromCurrency
+                        fromCurrency = event.fromCurrency,
+                        result = -1f
                     )
                 }
             }
             is ExchangeEvent.OnChangedToCurrency -> {
                 _state.update {
                     it.copy(
-                        toCurrency = event.toCurrency
+                        toCurrency = event.toCurrency,
+                        result = -1f
                     )
                 }
             }
             is ExchangeEvent.OnExchangeCurrencies -> {
                 viewModelScope.launch {
+
+                    _state.update {
+                        it.copy(
+                            isSearching = true
+                        )
+                    }
+
                     val result = repository.exchangeCurrencies(
                         fromCurrency = state.value.fromCurrency,
                         toCurrency = state.value.toCurrency,
@@ -78,7 +88,8 @@ class ExchangeViewModel : ViewModel() {
                     if (result.body()?.amount != null) {
                         _state.update {
                             it.copy(
-                                result = result.body()!!.amount
+                                result = result.body()!!.amount,
+                                isSearching = false
                             )
                         }
                     }

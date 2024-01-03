@@ -17,12 +17,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -116,12 +116,6 @@ fun ExchangeScreen() {
             )
         )
 
-        Box(
-            modifier = Modifier
-                .size(150.dp)
-                .shimmer(),
-        )
-
         Spacer(modifier = Modifier.height(48.dp))
 
         OutlinedText(
@@ -146,12 +140,8 @@ fun ExchangeScreen() {
             DropDown(
                 modifier = Modifier
                     .fillMaxWidth(.45f),
-                options = listOf(
-                    "RUB",
-                    "EUR",
-                    "USD",
-                ),
-                previousData = "USD",
+                options = state.currencies,
+                previousData = state.fromCurrency,
                 label = "From currency",
                 onTextChanged = {
                     viewModel.onEvent(ExchangeEvent.OnChangedFromCurrency(it))
@@ -168,12 +158,8 @@ fun ExchangeScreen() {
             )
 
             DropDown(
-                options = listOf(
-                    "RUB",
-                    "EUR",
-                    "USD",
-                ),
-                previousData = "USD 2",
+                options = state.currencies,
+                previousData = state.toCurrency,
                 label = "To currency",
                 onTextChanged = {
                     viewModel.onEvent(ExchangeEvent.OnChangedToCurrency(it))
@@ -181,25 +167,66 @@ fun ExchangeScreen() {
             )
         }
 
-        Spacer(modifier = Modifier.height(48.dp))
+        Spacer(modifier = Modifier.height(32.dp))
 
-        /* TODO create dropdown of currencies
-        * */
+        if (state.isSearching) {
 
-        Text(
-            modifier = Modifier
-                .fillMaxWidth(),
-            text = "${state.result} ${state.toCurrency}",
-            style = TextStyle(
-                fontSize = 40.sp,
-                fontFamily = FontFamily(Font(R.font.pacifico)),
-                fontWeight = FontWeight(600),
-                color = MaterialTheme.colorScheme.onBackground,
-                letterSpacing = 0.26.sp,
-                textAlign = TextAlign.Center
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(32.dp)
+                    .shimmer()
             )
-        )
+
+        } else {
+
+            if (state.result != -1f) {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    text = "${state.result} ${state.toCurrency}",
+                    style = TextStyle(
+                        fontSize = 40.sp,
+                        fontFamily = FontFamily(Font(R.font.pacifico)),
+                        fontWeight = FontWeight(600),
+                        color = MaterialTheme.colorScheme.onBackground,
+                        letterSpacing = 0.26.sp,
+                        textAlign = TextAlign.Center
+                    )
+                )
+            } else {
+                Button(
+                    modifier = Modifier
+                        .fillMaxWidth(),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                    ),
+                    shape = RoundedCornerShape(20.dp),
+                    onClick = {
+                        viewModel.onEvent(ExchangeEvent.OnExchangeCurrencies)
+                    }
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth(),
+                        text = "Exchange",
+                        style = TextStyle(
+                            fontSize = 20.sp,
+                            fontFamily = FontFamily(Font(R.font.pacifico)),
+                            fontWeight = FontWeight(600),
+                            color = MaterialTheme.colorScheme.secondary,
+                            letterSpacing = 0.26.sp,
+                            textAlign = TextAlign.Center
+                        )
+                    )
+                }
+            }
+        }
     }
+
+//    TODO create button which will be visible until we click, then shimmer
+    // after this use can see result
+
 
 }
 

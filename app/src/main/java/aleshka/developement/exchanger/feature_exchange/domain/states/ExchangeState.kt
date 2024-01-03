@@ -9,5 +9,7 @@ data class ExchangeState (
     val toCurrency: String = "RUB",
     val fromCurrency: String = "USD",
 
-    val result: Float = 0f
+    val result: Float = -1f,
+
+    val isSearching: Boolean = false,
 )
